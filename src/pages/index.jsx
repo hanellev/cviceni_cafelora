@@ -10,7 +10,6 @@ import { Footer } from '../components/Footer';
 const response = await fetch('http://localhost:4000/api/drinks');
 const data = await response.json();
 const drinkList = data.result;
-console.log(drinkList);
 
 document.querySelector('#root').innerHTML = render(
 	<div className="page">
@@ -27,10 +26,28 @@ document.querySelector('#root').innerHTML = render(
 
 const navBtn = document.querySelector('.nav-btn');
 const rollNav = document.querySelector('.rollout-nav');
+const orderForm = document.querySelectorAll('form');
 
 const showMenu = (e) => {
 	rollNav.classList.toggle('nav-closed');
 };
+
+orderForm.forEach((form) => {
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const formElement = e.target;
+		const id = formElement.querySelector('input').value;
+
+		fetch(`http://localhost:4000/api/drinks/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify([{ op: 'replace', path: '/ordered', value: true }]),
+		});
+		window.location.reload();
+	});
+});
 
 navBtn.addEventListener('click', showMenu);
 rollNav.addEventListener('click', showMenu);

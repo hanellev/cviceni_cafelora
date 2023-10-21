@@ -13,9 +13,10 @@ export const Menu = ({ drinks }) => {
 					{drinks.map((drink) => {
 						return (
 							<Drink
+								key={drink.id}
 								id={drink.id}
 								name={drink.name}
-								ordered={false}
+								ordered={drink.ordered}
 								image={drink.image}
 								layers={drink.layers}
 							/>
