@@ -7,12 +7,17 @@ import { Gallery } from '../components/Gallery';
 import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
 
+const response = await fetch('http://localhost:4000/api/drinks');
+const data = await response.json();
+const drinkList = data.result;
+console.log(drinkList);
+
 document.querySelector('#root').innerHTML = render(
 	<div className="page">
 		<Header />
 		<main>
 			<Banner />
-			<Menu />
+			<Menu drinks={drinkList} />
 			<Gallery />
 			<Contact />
 		</main>
