@@ -22,7 +22,6 @@ export const Menu = ({ drinks }) => {
 							/>
 						);
 					})}
-					;
 				</div>
 				<div className="order-detail">
 					<a href="/objednavka">Detail objednávky</a>
